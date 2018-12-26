@@ -10,14 +10,18 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.globallogic.weathapp"
-        minSdkVersion 27
+        minSdkVersion 22
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug{
+            debuggable true
+        }
         release {
+            debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -44,9 +48,10 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.1.7'
     //Retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    //Retrofit RX (Adapter & Converter)
+    //Retrofit RX (Adapter & Converter & Logger)
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
     //Realm Annotations
     kapt "io.realm:realm-annotations:4.3.1"
     kapt "io.realm:realm-annotations-processor:4.3.1"
@@ -55,6 +60,10 @@ dependencies {
     //Butterknife
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'org.apache.commons:commons-lang3:3.6'
+
+
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.7.0'
 }
 
 //Realm Annotations
