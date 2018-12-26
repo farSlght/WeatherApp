@@ -10,9 +10,6 @@ import java.util.List;
 
 @RealmClass
 open class WeatherData : RealmObject() {
-    
-
-    // class Datum {
 
         @SerializedName("datetime")
         @Expose
@@ -64,7 +61,7 @@ open class WeatherData : RealmObject() {
 
         @SerializedName("weather")
         @Expose
-        var weather: Weather? = null;
+        var weather: WeatherMedia? = null;
 
         @SerializedName("slp")
         @Expose
@@ -117,142 +114,4 @@ open class WeatherData : RealmObject() {
         @SerializedName("wind_cdir_full")
         @Expose
         var windCdirFull: String? = null
-
-//    }
-
-    class Example {
-
-        @SerializedName("city_name")
-        @Expose
-        var String cityName;
-        @SerializedName("state_code")
-        @Expose
-        var String stateCode;
-        @SerializedName("country_code")
-        @Expose
-        var String countryCode;
-        @SerializedName("lat")
-        @Expose
-        var String lat;
-        @SerializedName("lon")
-        @Expose
-        var String lon;
-        @SerializedName("timezone")
-        @Expose
-        var String timezone;
-        @SerializedName("data")
-        @Expose
-        var List<Datum> data = null;
-
-        public String getCityName() {
-            return cityName;
-        }
-
-        public void setCityName(String cityName) {
-            this.cityName = cityName;
-        }
-
-        public String getStateCode() {
-            return stateCode;
-        }
-
-        public void setStateCode(String stateCode) {
-            this.stateCode = stateCode;
-        }
-
-        public String getCountryCode() {
-            return countryCode;
-        }
-
-        public void setCountryCode(String countryCode) {
-            this.countryCode = countryCode;
-        }
-
-        public String getLat() {
-            return lat;
-        }
-
-        public void setLat(String lat) {
-            this.lat = lat;
-        }
-
-        public String getLon() {
-            return lon;
-        }
-
-        public void setLon(String lon) {
-            this.lon = lon;
-        }
-
-        public String getTimezone() {
-            return timezone;
-        }
-
-        public void setTimezone(String timezone) {
-            this.timezone = timezone;
-        }
-
-        public List<Datum> getData() {
-            return data;
-        }
-
-        public void setData(List<Datum> data) {
-            this.data = data;
-        }
-
-    }
-
-
-    class Weather {
-
-        @SerializedName("icon")
-        @Expose
-        var String icon;
-        @SerializedName("code")
-        @Expose
-        var String code;
-        @SerializedName("description")
-        @Expose
-        var String description;
-
-        public String getIcon() {
-            return icon;
-        }
-
-        public void setIcon(String icon) {
-            this.icon = icon;
-        }
-
-        public String getCode() {
-            return code;
-        }
-
-        public void setCode(String code) {
-            this.code = code;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
-    }
-
-
-    @PrimaryKey
-    @SerializedName("id")
-    @Expose
-    var id: Int? = null
-
-    @SerializedName("login")
-    @Expose
-    var login: String? = null
-
-    @SerializedName("avatar_url")
-    @Expose
-    var avatar_url: String? = null
-
 }
