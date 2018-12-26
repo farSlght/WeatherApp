@@ -2,15 +2,15 @@ package com.globallogic.weathapp.data.model
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import io.realm.RealmObject
-import io.realm.annotations.PrimaryKey
-import io.realm.annotations.RealmClass
-import java.util.List;
+//import io.realm.RealmObject
+//import io.realm.annotations.PrimaryKey
+//import io.realm.annotations.RealmClass
 
 
-@RealmClass
-open class WeatherData : RealmObject() {
+//@RealmClass
+open class WeatherData /*: RealmObject()*/ {
 
+//        @PrimaryKey
         @SerializedName("datetime")
         @Expose
         var datetime : String? = null
@@ -114,4 +114,8 @@ open class WeatherData : RealmObject() {
         @SerializedName("wind_cdir_full")
         @Expose
         var windCdirFull: String? = null
+
+    override fun toString(): String {
+        return datetime + "\n" + temp + "\n" + clouds + "\n"
+    }
 }

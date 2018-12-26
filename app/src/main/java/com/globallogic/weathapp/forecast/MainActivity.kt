@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView
 import android.widget.LinearLayout
 import com.globallogic.weathapp.WeatherApplication
 import com.globallogic.weathapp.WeatherApplication.isFirstInstall
+import com.globallogic.weathapp.api.WeatherbitApi
 import com.globallogic.weathapp.forecast.utils.WeatherAdapter
 import com.google.android.gms.location.places.ui.PlacePicker
 import kotlinx.android.synthetic.main.view_weather_item.*
@@ -32,6 +33,8 @@ class MainActivity : Activity() {
             val builder = PlacePicker.IntentBuilder()
             startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST)
         }
+
+        WeatherbitApi.getWeather3day()
 
         val weatherRecycler = findViewById<RecyclerView>(R.id.weather_recycler)
         weatherRecycler.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
