@@ -4,7 +4,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import io.realm.RealmModel;
+import io.realm.annotations.RealmClass;
 
+@RealmClass
 public class WeatherData implements RealmModel {
 
         @SerializedName("wind_cdir")

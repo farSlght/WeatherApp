@@ -3,25 +3,28 @@ package com.globallogic.weathapp.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import java.util.List;
+
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.RealmClass;
 
 
-//@RealmClass
-public class WeatherbitResponce /*: RealmObject()*/  {
+@RealmClass
+public class WeatherbitResponce extends RealmObject {
 
 
     @SerializedName("data")
     @Expose
-    private List<WeatherData> data = null;
+    private RealmList<WeatherData> data = null;
     @SerializedName("count")
     @Expose
     private Integer count;
 
-    public List<WeatherData> getData() {
+    public RealmList<WeatherData> getData() {
         return data;
     }
 
-    public void setData(List<WeatherData> data) {
+    public void setData(RealmList<WeatherData> data) {
         this.data = data;
     }
 

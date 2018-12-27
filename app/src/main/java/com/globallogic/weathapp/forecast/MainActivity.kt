@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView
 import android.widget.LinearLayout
 import com.globallogic.weathapp.WeatherApplication
 import com.globallogic.weathapp.api.WeatherbitApi
+import com.globallogic.weathapp.database.WeatherStorage
 import com.globallogic.weathapp.forecast.utils.WeatherAdapter
 import com.google.android.gms.location.places.ui.PlacePicker
 
@@ -32,7 +33,8 @@ class MainActivity : Activity() {
         }
 
         if (WeatherApplication.isLocationAvailable()) {
-            WeatherbitApi.getWeather3day()
+            WeatherStorage(this).getCurrentWeather()
+//            WeatherbitApi.getCurrentWeather()
         }
 
         val weatherRecycler = findViewById<RecyclerView>(R.id.weather_recycler)
@@ -66,7 +68,7 @@ class MainActivity : Activity() {
                 val toastMsg = String.format("Place: %s", place.getName())
                 Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show()
 
-                WeatherbitApi.getWeather3day()
+                WeatherbitApi.getCurrentWeather()
 
             }
         }

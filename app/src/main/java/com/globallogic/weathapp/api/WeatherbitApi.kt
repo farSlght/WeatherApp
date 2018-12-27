@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder
 import com.vicpin.krealmextensions.save
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import io.realm.Realm
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -16,8 +17,6 @@ object WeatherbitApi {
 
     private val BASE_URL = "https://api.weatherbit.io/v2.0/"
     private val API_KEY = "e7c124ee83e54a9caca0f8019ced80a8"
-
-    private val gson = GsonBuilder().create()
 
     private val interceptor: HttpLoggingInterceptor =  HttpLoggingInterceptor()
             .setLevel(HttpLoggingInterceptor.Level.BASIC)
@@ -34,7 +33,8 @@ object WeatherbitApi {
     private val apiService: ApiRequest = retrofit.create(ApiRequest::class.java)
 
 
-    fun getWeather3day() {
+    fun getCurrentWeather() {
+
         var lattitude: String = WeatherApplication.getLocationLatitude()
         var longitude: String = WeatherApplication.getLocationLongitude()
 
@@ -47,7 +47,7 @@ object WeatherbitApi {
                         { weather ->
 
                           Log.d("Retrieved weather", weather.toString())
-//                            weather.save()
+                            weather.save()
 
                         },
                         { error ->
