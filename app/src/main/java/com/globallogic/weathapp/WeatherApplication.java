@@ -69,4 +69,25 @@ public class WeatherApplication extends Application {
     public static WeatherApplication getInstance() {
         return sInstance;
     }
+
+    public static boolean isLocationAvailable() {
+        return ((getLocationLatitude() != null & getLocationLongitude() != null) ||
+                (!getLocationLongitude().isEmpty() & !getLocationLongitude().isEmpty())) ? true : false;
+    }
+
+    public static String getLocationLatitude() {
+        return mSharedPreferencesStorage.getLocationLat();
+    }
+
+    public static void setLocationLatitude(String latitude) {
+        mSharedPreferencesStorage.setLocationLat(latitude);
+    }
+
+    public static String getLocationLongitude() {
+        return mSharedPreferencesStorage.getLocationLon();
+    }
+
+    public static void setLocationLongitude(String longitude) {
+        mSharedPreferencesStorage.setLocationLon(longitude);
+    }
 }

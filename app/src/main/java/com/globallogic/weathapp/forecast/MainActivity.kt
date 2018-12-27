@@ -6,16 +6,13 @@ import android.os.Bundle
 import android.util.Log
 import com.globallogic.weathapp.R
 import android.widget.Toast
-import android.R.attr.data
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.LinearLayout
 import com.globallogic.weathapp.WeatherApplication
-import com.globallogic.weathapp.WeatherApplication.isFirstInstall
 import com.globallogic.weathapp.api.WeatherbitApi
 import com.globallogic.weathapp.forecast.utils.WeatherAdapter
 import com.google.android.gms.location.places.ui.PlacePicker
-import kotlinx.android.synthetic.main.view_weather_item.*
 
 
 class MainActivity : Activity() {
@@ -34,7 +31,9 @@ class MainActivity : Activity() {
             startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST)
         }
 
-        WeatherbitApi.getWeather3day()
+        if (WeatherApplication.isLocationAvailable()) {
+            WeatherbitApi.getWeather3day()
+        }
 
         val weatherRecycler = findViewById<RecyclerView>(R.id.weather_recycler)
         weatherRecycler.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
@@ -57,10 +56,20 @@ class MainActivity : Activity() {
 
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
+
                 val place = PlacePicker.getPlace(data, this)
+                val placeLat: String = place.latLng.latitude.toString()
+                val placeLon: String = place.latLng.longitude.toString()
+                WeatherApplication.setLocationLatitude(placeLat)
+                WeatherApplication.setLocationLongitude(placeLon)
+
                 val toastMsg = String.format("Place: %s", place.getName())
                 Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show()
+
+                WeatherbitApi.getWeather3day()
+
             }
         }
     }
+
 }
