@@ -3,6 +3,7 @@ package com.globallogic.weathapp.api
 import android.util.Log
 import com.globallogic.weathapp.WeatherApplication
 import com.google.gson.GsonBuilder
+import com.vicpin.krealmextensions.save
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
@@ -43,9 +44,10 @@ object WeatherbitApi {
                 .subscribeOn(Schedulers.newThread()) //Schedulers.io()
                 .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
                 .subscribe(
-                        { user ->
+                        { weather ->
 
-                          Log.d("Retrieved weather count", user.count.toString())
+                          Log.d("Retrieved weather", weather.toString())
+//                            weather.save()
 
                         },
                         { error ->

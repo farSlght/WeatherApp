@@ -6,9 +6,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.util.Log;
-
 import com.globallogic.weathapp.data.storage.SharedPreferenceStorage;
 import com.globallogic.weathapp.data.storage.Storage;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class WeatherApplication extends Application {
 
@@ -34,7 +35,9 @@ public class WeatherApplication extends Application {
 
 
     private void initDatabase() {
-        /// TODO:
+        Realm.init(this);
+        RealmConfiguration realmConfig = new RealmConfiguration.Builder().deleteRealmIfMigrationNeeded().build();
+        Realm.setDefaultConfiguration(realmConfig);
     }
 
 
