@@ -2,7 +2,6 @@ package com.globallogic.weathapp.database
 
 import android.content.Context
 import android.util.Log
-import com.globallogic.weathapp.api.WeatherbitApi
 import com.globallogic.weathapp.data.model.WeatherbitResponce
 import com.vicpin.krealmextensions.queryFirst
 import io.realm.Realm
@@ -10,12 +9,12 @@ import io.realm.Realm
 class WeatherStorage(private val context: Context) {
 
     init {
-        Realm.init(context);
+        Realm.init(context)
     }
 
     var realm: Realm? = null
 
-    fun getCurrentWeather(){
+    fun updateCurrentWeather(){
 
         try {
 
@@ -28,8 +27,8 @@ class WeatherStorage(private val context: Context) {
 
             } ?: run {
 
-                /*Pull fresh data*/
-//                WeatherbitApi.getCurrentWeather()
+                /// TODO: put to LiveData
+
         }
 
     } catch (e: Throwable) {

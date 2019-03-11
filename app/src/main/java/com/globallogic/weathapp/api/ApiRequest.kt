@@ -8,7 +8,14 @@ import retrofit2.http.Query
 interface ApiRequest {
 
     @GET("current")
-    fun getWeather3day(@Query("lat") lat: String,
-                       @Query("lon") lon: String,
-                       @Query("key") apiKey: String): Observable<WeatherbitResponce>
+    fun getCurrentWeather(@Query("lat") lat: String,
+                          @Query("lon") lon: String,
+                          @Query("key") apiKey: String): Observable<WeatherbitResponce>
+
+        @GET("3hourly")
+    fun getWeather3Day(@Query("lat") lat: String,
+                          @Query("lon") lon: String,
+                          @Query("key") apiKey: String): Observable<WeatherbitResponce>
+
+
 }

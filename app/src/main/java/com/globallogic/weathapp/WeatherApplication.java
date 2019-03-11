@@ -6,6 +6,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.util.Log;
+
+import com.globallogic.weathapp.data.model.WeatherViewModel;
 import com.globallogic.weathapp.data.storage.SharedPreferenceStorage;
 import com.globallogic.weathapp.data.storage.Storage;
 import io.realm.Realm;
@@ -17,6 +19,7 @@ public class WeatherApplication extends Application {
 
     private static WeatherApplication sInstance;
     private static Storage mSharedPreferencesStorage;
+    private WeatherViewModel weatherViewModel;
 
 
     @Override
@@ -26,13 +29,11 @@ public class WeatherApplication extends Application {
 
         sInstance = this;
         mSharedPreferencesStorage = new SharedPreferenceStorage(this);
-
         if (isFirstInstall()) {
             initDatabase();
 
         }
     }
-
 
     private void initDatabase() {
         Realm.init(this);
@@ -74,8 +75,10 @@ public class WeatherApplication extends Application {
     }
 
     public static boolean isLocationAvailable() {
-        return ((getLocationLatitude() != null & getLocationLongitude() != null) ||
-                (!getLocationLongitude().isEmpty() & !getLocationLongitude().isEmpty())) ? true : false;
+    if (getLocationLatitude() != null & getLocationLongitude() != null) {
+        return !getLocationLongitude().isEmpty() & !getLocationLongitude().isEmpty();
+    }
+    return false;
     }
 
     public static String getLocationLatitude() {

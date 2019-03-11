@@ -2,11 +2,12 @@ package com.globallogic.weathapp.api
 
 import android.util.Log
 import com.globallogic.weathapp.WeatherApplication
-import com.google.gson.GsonBuilder
-import com.vicpin.krealmextensions.save
+import com.globallogic.weathapp.data.model.WeatherData
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import io.realm.Realm
+import io.reactivex.subjects.PublishSubject
+import io.realm.RealmList
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -15,6 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object WeatherbitApi {
 
+    private val TAG = WeatherbitApi.javaClass.simpleName
     private val BASE_URL = "https://api.weatherbit.io/v2.0/"
     private val API_KEY = "e7c124ee83e54a9caca0f8019ced80a8"
 
@@ -33,28 +35,31 @@ object WeatherbitApi {
     private val apiService: ApiRequest = retrofit.create(ApiRequest::class.java)
 
 
-    fun getCurrentWeather() {
+    fun updateCurrentWeather(): Observable<RealmList<WeatherData>> {
 
-        var lattitude: String = WeatherApplication.getLocationLatitude()
-        var longitude: String = WeatherApplication.getLocationLongitude()
+        val lattitude: String = WeatherApplication.getLocationLatitude()
+        val longitude: String = WeatherApplication.getLocationLongitude()
 
-        apiService.getWeather3day(lat = lattitude,
+        val weatherUpdates = PublishSubject.create<RealmList<WeatherData>>()
+
+        apiService.getCurrentWeather(lat = lattitude,
                                     lon = longitude,
                                     apiKey = API_KEY)
                 .subscribeOn(Schedulers.newThread()) //Schedulers.io()
                 .observeOn(AndroidSchedulers.mainThread()) //AndroidSchedulers.mainThread()
                 .subscribe(
-                        { weather ->
+                        { receivedWeather ->
 
-                          Log.d("Retrieved weather", weather.toString())
-                            weather.save()
+                            Log.d(TAG+" Retrieved weather", receivedWeather.data[0].toString())
+                            receivedWeather.data?.let { weatherUpdates.onNext(it) }
 
                         },
                         { error ->
 
-                            print("Realm Error: " + error.message)
+                            print(TAG+" Realm Error: " + error.message)
 
                         }
                 )
+        return weatherUpdates
     }
 }

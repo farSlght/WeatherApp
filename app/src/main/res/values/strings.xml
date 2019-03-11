@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">WeathApp</string>
     <string name="google_api_key">AIzaSyDsLdIdOWqwRFNTZNfDCYG2Ix27s_h0Y3k</string>
+    <string name="celsius"> °C</string>
 </resources>
